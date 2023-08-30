@@ -37,9 +37,5 @@
 - 플레이어에게 출력할 데이터를 처리하는 로직
 
 ### Message
-#### BridgeLengthErrorMessage
-- 입력 값 중 다리 길이에 대한 에러 메시지 관리하는 클래스
-#### PlayerMovementErrorMessage
-- 입력 값 중 이동할 칸에 대한 에러 메시지 관리하는 클래스
-#### RestartYnErrorMessage
-- 입력 값 중 게임 재시작 여부에 대한 에러 메시지 관리하는 클래스
+#### InputErrorMessage
+- 입력 값에 대한 에러 메시지 관리하는 클래스
