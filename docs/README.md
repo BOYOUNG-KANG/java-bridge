@@ -39,3 +39,7 @@
 ### Message
 #### InputErrorMessage
 - 입력 값에 대한 에러 메시지 관리하는 클래스
+#### InputMessage
+- 입력 처리 시 사용할 출력 메시지 관리하는 클래스
+#### OutputMessage
+- 출력 처리 시 사용할 출력 메시지 관리하는 클래스
