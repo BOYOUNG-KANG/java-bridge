@@ -16,3 +16,30 @@
    - Q 선택한 경우, 최종 게임 결과와 게임 성공 여부, 총 시도 횟수 출력
 
 ---
+## 모듈별 기능 분류
+
+### Controller
+#### BridgeGameController
+- 게임은 전체적인 흐름을 관리하는 로직
+
+### Domain
+#### BridgeGame
+- 플레이어의 이동 정보와 재시도 정보에 대한 데이터를 관리하는 로직
+#### BridgeMaker
+- 출력할 다리 이미지를 만드는 로직
+#### BridgeRandomNumberGenerator
+- 이동할 수 있는 칸과 이동할 수 없는 칸을 결정하는 로직
+
+### View
+#### InputView
+- 플레이어에게 입력받을 데이터를 처리하는 로직
+#### OutputView
+- 플레이어에게 출력할 데이터를 처리하는 로직
+
+### Message
+#### BridgeLengthErrorMessage
+- 입력 값 중 다리 길이에 대한 에러 메시지 관리하는 클래스
+#### PlayerMovementErrorMessage
+- 입력 값 중 이동할 칸에 대한 에러 메시지 관리하는 클래스
+#### RestartYnErrorMessage
+- 입력 값 중 게임 재시작 여부에 대한 에러 메시지 관리하는 클래스
