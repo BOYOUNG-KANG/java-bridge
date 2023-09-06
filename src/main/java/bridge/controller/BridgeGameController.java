@@ -29,17 +29,13 @@ public class BridgeGameController {
                 failYn = playGame(i, bridgeBlock, playerMovement);
             }
         }
-
-
-
+        
     }
-    public String playGame(int size, List<String> block, PlayerMovement playerMovement){
+    private String playGame(int size, List<String> block, PlayerMovement playerMovement){
         System.out.println();
         playerMovement.addPlayerMove(inputView.readMoving());
         BridgeMap bridgeMap = new BridgeMap();
         bridgeMap.createBridge(size, playerMovement.getPlayerMove(), block);
-        System.out.println("bridgeMap = " + bridgeMap.getUpperBridgeMap());
-        System.out.println("bridgeMap = " + bridgeMap.getLowerBridgeMap());
 
         outputView.printMap(bridgeMap.getUpperBridgeMap(), bridgeMap.getLowerBridgeMap());
         return bridgeMap.getFailYn();
