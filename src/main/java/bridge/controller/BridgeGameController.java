@@ -5,6 +5,7 @@ import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.BridgeMap;
 import bridge.domain.PlayerMovement;
+import bridge.message.OutputMessage;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
@@ -38,7 +39,12 @@ public class BridgeGameController {
         }
         bridgeGame.updateTryCount();
         bridgeGame.updateSuccessYn(failYn);
-        restartGame(bridgeSize, bridgeBlock,bridgeGame);
+        if (bridgeGame.getSuccessYn().equals(OutputMessage.FAIL)) {
+            restartGame(bridgeSize, bridgeBlock,bridgeGame);
+        }
+        if (bridgeGame.getSuccessYn().equals(OutputMessage.SUCCESS)) {
+            finishGame(bridgeGame);
+        }
     }
     private String progressGame(int size, List<String> block, PlayerMovement playerMovement, BridgeGame bridgeGame){
         playerMovement.addPlayerMove(inputView.readMoving());
@@ -58,7 +64,10 @@ public class BridgeGameController {
             startGame(bridgeSize, bridgeBlock);
         }
         if (restartYn.equals(QUIT)) {
-            outputView.printResult(bridgeGame.getFinalUpperBridge(), bridgeGame.getFinalLowerBridge(), bridgeGame.getSuccessYn(), bridgeGame.getTryCount());
+            finishGame(bridgeGame);
         }
+    }
+    private void finishGame(BridgeGame bridgeGame){
+        outputView.printResult(bridgeGame.getFinalUpperBridge(), bridgeGame.getFinalLowerBridge(), bridgeGame.getSuccessYn(), bridgeGame.getTryCount());
     }
 }
