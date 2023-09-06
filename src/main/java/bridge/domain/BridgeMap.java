@@ -1,6 +1,6 @@
 package bridge.domain;
 
-import bridge.SymbolProvider;
+import bridge.BridgeProvider;
 
 import java.util.List;
 
@@ -19,38 +19,38 @@ public class BridgeMap {
     }
 
     private void createBridgeOfSizeN(int size, List<String> playerMovement, List<String> block) {
-        upperBridgeMap.append(SymbolProvider.LEFT_SIDE);
-        lowerBridgeMap.append(SymbolProvider.LEFT_SIDE);
+        upperBridgeMap.append(BridgeProvider.LEFT_SIDE);
+        lowerBridgeMap.append(BridgeProvider.LEFT_SIDE);
 
         for(int i = 0; i < size; i++) {
             boolean isEqual = playerMovement.get(i).equals(block.get(i));
             if(isEqual) {
-                checkPlayerMovement(SymbolProvider.WRONG, playerMovement.get(i));
+                checkPlayerMovement(BridgeProvider.WRONG, playerMovement.get(i));
                 failYn = "Y";
             }
             if (!isEqual) {
-                checkPlayerMovement(SymbolProvider.CORRECT, playerMovement.get(i));
+                checkPlayerMovement(BridgeProvider.CORRECT, playerMovement.get(i));
             }
             buildBarrier(i, size);
         }
-        upperBridgeMap.append(SymbolProvider.RIGHT_SIDE);
-        lowerBridgeMap.append(SymbolProvider.RIGHT_SIDE);
+        upperBridgeMap.append(BridgeProvider.RIGHT_SIDE);
+        lowerBridgeMap.append(BridgeProvider.RIGHT_SIDE);
     }
 
     private void buildBarrier(int i, int size) {
         if (i < size - 1) {
-            upperBridgeMap.append(SymbolProvider.BARRIER);
-            lowerBridgeMap.append(SymbolProvider.BARRIER);
+            upperBridgeMap.append(BridgeProvider.BARRIER);
+            lowerBridgeMap.append(BridgeProvider.BARRIER);
         }
     }
 
     private void checkPlayerMovement(String correctYn, String playerMovement){
         if (playerMovement.equals("U")) {
             upperBridgeMap.append(correctYn);
-            lowerBridgeMap.append(SymbolProvider.BLANK);
+            lowerBridgeMap.append(BridgeProvider.BLANK);
         }
         if (playerMovement.equals("D")) {
-            upperBridgeMap.append(SymbolProvider.BLANK);
+            upperBridgeMap.append(BridgeProvider.BLANK);
             lowerBridgeMap.append(correctYn);
         }
     }
@@ -59,21 +59,21 @@ public class BridgeMap {
 
         if (playerMove.equals(block) && playerMove.equals("U")) {
             failYn = "Y";
-            upperBridgeMap.append(SymbolProvider.SIZE1_WRONG);
-            lowerBridgeMap.append(SymbolProvider.SIZE1_BLANK);
+            upperBridgeMap.append(BridgeProvider.SIZE1_WRONG);
+            lowerBridgeMap.append(BridgeProvider.SIZE1_BLANK);
         }
         if (playerMove.equals(block) && playerMove.equals("D")) {
             failYn = "Y";
-            upperBridgeMap.append(SymbolProvider.SIZE1_BLANK);
-            lowerBridgeMap.append(SymbolProvider.SIZE1_WRONG);
+            upperBridgeMap.append(BridgeProvider.SIZE1_BLANK);
+            lowerBridgeMap.append(BridgeProvider.SIZE1_WRONG);
         }
         if (!playerMove.equals(block) && playerMove.equals("U")) {
-            upperBridgeMap.append(SymbolProvider.SIZE1_CORRECT);
-            lowerBridgeMap.append(SymbolProvider.SIZE1_BLANK);
+            upperBridgeMap.append(BridgeProvider.SIZE1_CORRECT);
+            lowerBridgeMap.append(BridgeProvider.SIZE1_BLANK);
         }
         if(!playerMove.equals(block) && playerMove.equals("D")) {
-            upperBridgeMap.append(SymbolProvider.SIZE1_BLANK);
-            lowerBridgeMap.append(SymbolProvider.SIZE1_CORRECT);
+            upperBridgeMap.append(BridgeProvider.SIZE1_BLANK);
+            lowerBridgeMap.append(BridgeProvider.SIZE1_CORRECT);
         }
     }
 

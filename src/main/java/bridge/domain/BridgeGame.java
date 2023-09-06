@@ -1,12 +1,13 @@
 package bridge.domain;
 
+import bridge.OutputProvider;
 import bridge.message.InputErrorMessage;
 import bridge.message.OutputMessage;
 
 public class BridgeGame {
     private String finalUpperBridge;
     private String finalLowerBridge;
-    private String successYn = OutputMessage.FAIL;
+    private String successYn = OutputProvider.FAIL;
     private int tryCount = 0;
 
     /**
@@ -33,10 +34,10 @@ public class BridgeGame {
 
     public void updateSuccessYn(String fail){
         if (fail.equals("Y")) {
-            this.successYn = OutputMessage.FAIL;
+            this.successYn = OutputProvider.FAIL;
         }
         if (fail.equals("N")) {
-            this.successYn = OutputMessage.SUCCESS;
+            this.successYn = OutputProvider.SUCCESS;
         }
     }
 

@@ -1,6 +1,6 @@
 package bridge;
 
-public class SymbolProvider {
+public class BridgeProvider {
     public static final String BLANK = "   ";
     public static final String CORRECT = " O ";
     public static final String WRONG = " X ";

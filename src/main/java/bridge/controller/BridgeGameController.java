@@ -1,11 +1,12 @@
 package bridge.controller;
 
 import bridge.BridgeRandomNumberGenerator;
+import bridge.InputProvider;
+import bridge.OutputProvider;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.BridgeMap;
 import bridge.domain.PlayerMovement;
-import bridge.message.OutputMessage;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
@@ -14,8 +15,6 @@ import java.util.List;
 public class BridgeGameController {
     OutputView outputView = new OutputView();
     InputView inputView = new InputView();
-    private static final String RESTART = "R";
-    private static final String QUIT = "Q";
     public void playGame(){
         outputView.startGame();
         int bridgeSize = inputView.readBridgeSize();
@@ -39,10 +38,10 @@ public class BridgeGameController {
         }
         bridgeGame.updateTryCount();
         bridgeGame.updateSuccessYn(failYn);
-        if (bridgeGame.getSuccessYn().equals(OutputMessage.FAIL)) {
+        if (bridgeGame.getSuccessYn().equals(OutputProvider.FAIL)) {
             restartGame(bridgeSize, bridgeBlock,bridgeGame);
         }
-        if (bridgeGame.getSuccessYn().equals(OutputMessage.SUCCESS)) {
+        if (bridgeGame.getSuccessYn().equals(OutputProvider.SUCCESS)) {
             finishGame(bridgeGame);
         }
     }
@@ -60,10 +59,10 @@ public class BridgeGameController {
         String restartYn = inputView.readGameCommand();
         bridgeGame.retry(restartYn);
 
-        if (restartYn.equals(RESTART)) {
+        if (restartYn.equals(InputProvider.RESTART)) {
             startGame(bridgeSize, bridgeBlock);
         }
-        if (restartYn.equals(QUIT)) {
+        if (restartYn.equals(InputProvider.QUIT)) {
             finishGame(bridgeGame);
         }
     }
