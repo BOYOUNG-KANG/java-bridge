@@ -18,18 +18,27 @@ public class BridgeMaker {
         this.bridgeNumberGenerator = bridgeNumberGenerator;
     }
 
-    /**
-     * @param size 다리의 길이
-     * @return 입력받은 길이에 해당하는 다리 모양. 위 칸이면 "U", 아래 칸이면 "D"로 표현해야 한다.
-     */
     public List<String> makeBridge(int size) {
+        List<String> blocked = new ArrayList<>();
         validate(size);
+        for(int i = 0; i < size; i ++) {
+            int randomNum = bridgeNumberGenerator.generate();
+            checkRandomNum(blocked, randomNum);
+        }
+        return blocked;
+    }
 
-        return null;
+    private static void checkRandomNum(List<String> blocked, int randomNum) {
+        if(randomNum == 1) {
+            blocked.add("U");
+        }
+        if(randomNum == 0) {
+            blocked.add("D");
+        }
     }
 
     private void validate(int size) {
-        if(size > MINIMUM_LENGTH || size < MAXIMUN_LENGTH) {
+        if(size < MINIMUM_LENGTH || size > MAXIMUN_LENGTH) {
             throw new IllegalArgumentException(InputErrorMessage.BRIDGE_LENGTH_INPUT_ERROR);
         }
     }
