@@ -2,6 +2,7 @@ package bridge.controller;
 
 import bridge.BridgeRandomNumberGenerator;
 import bridge.domain.BridgeMaker;
+import bridge.domain.BridgeMap;
 import bridge.domain.PlayerMovement;
 import bridge.view.InputView;
 import bridge.view.OutputView;
@@ -14,6 +15,7 @@ public class BridgeGameController {
 
     public void startGame(){
         //initSetup
+        PlayerMovement playerMovement = new PlayerMovement();
         BridgeMap bridgeMap = new BridgeMap();
 
         outputView.startGame();
@@ -22,8 +24,10 @@ public class BridgeGameController {
         BridgeMaker bridgeMaker = new BridgeMaker(generator);
         List<String> bridgeBlock = bridgeMaker.makeBridge(bridgeSize);
 
+        playGame(bridgeSize, bridgeBlock, playerMovement, bridgeMap);
     }
-
-
-
+    public void playGame(int size, List<String> block, PlayerMovement playerMovement, BridgeMap bridgeMap){
+        playerMovement.addPlayerMove(inputView.readMoving());
+        bridgeMap.createBridge(size, playerMovement.getPlayerMove(), block);
+    }
 }
