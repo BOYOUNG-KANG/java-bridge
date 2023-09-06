@@ -32,12 +32,12 @@ public class BridgeGameController {
 
         for(int i = 1; i <= bridgeSize; i ++) {
             if(failYn.equals("N")) {
-                failYn = playGame(i, bridgeBlock, playerMovement);
+                failYn = progressGame(i, bridgeBlock, playerMovement);
             }
         }
         restartGame(bridgeSize, bridgeBlock);
     }
-    private String playGame(int size, List<String> block, PlayerMovement playerMovement){
+    private String progressGame(int size, List<String> block, PlayerMovement playerMovement){
         System.out.println();
         playerMovement.addPlayerMove(inputView.readMoving());
         BridgeMap bridgeMap = new BridgeMap();
