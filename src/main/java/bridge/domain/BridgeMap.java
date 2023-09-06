@@ -1,17 +1,14 @@
 package bridge.domain;
 
+import bridge.SymbolProvider;
+
 import java.util.List;
 
 public class BridgeMap {
     private final StringBuilder upperBridgeMap = new StringBuilder();
     private final StringBuilder lowerBridgeMap = new StringBuilder();
     private String failYn = "N";
-    private static final String BLANK = "   ";
-    private static final String CORRECT = " O ";
-    private static final String WRONG = " X ";
-    private static final String BARRIER = "|";
-    private static final String LEFT_SIDE = "[";
-    private static final String RIGHT_SIDE = "]";
+
     public void createBridge(int size, List<String> playerMovement, List<String> block){
         if(size == 1) {
             createBridgeOfSize1(block.get(0), playerMovement);
@@ -23,38 +20,38 @@ public class BridgeMap {
     }
 
     private void createBridgeOfSizeN(int size, List<String> playerMovement, List<String> block) {
-        upperBridgeMap.append(LEFT_SIDE);
-        lowerBridgeMap.append(LEFT_SIDE);
+        upperBridgeMap.append(SymbolProvider.LEFT_SIDE);
+        lowerBridgeMap.append(SymbolProvider.LEFT_SIDE);
 
         for(int i = 0; i < size; i++) {
             boolean isEqual = playerMovement.get(i).equals(block.get(i));
             if(isEqual) {
-                checkPlayerMovement(WRONG, playerMovement.get(i));
+                checkPlayerMovement(SymbolProvider.WRONG, playerMovement.get(i));
                 failYn = "Y";
             }
             if (!isEqual) {
-                checkPlayerMovement(CORRECT, playerMovement.get(i));
+                checkPlayerMovement(SymbolProvider.CORRECT, playerMovement.get(i));
             }
             buildBarrier(i, size);
         }
-        upperBridgeMap.append(RIGHT_SIDE);
-        lowerBridgeMap.append(RIGHT_SIDE);
+        upperBridgeMap.append(SymbolProvider.RIGHT_SIDE);
+        lowerBridgeMap.append(SymbolProvider.RIGHT_SIDE);
     }
 
     private void buildBarrier(int i, int size) {
         if (i < size - 1) {
-            upperBridgeMap.append(BARRIER);
-            lowerBridgeMap.append(BARRIER);
+            upperBridgeMap.append(SymbolProvider.BARRIER);
+            lowerBridgeMap.append(SymbolProvider.BARRIER);
         }
     }
 
     private void checkPlayerMovement(String correctYn, String playerMovement){
         if (playerMovement.equals("U")) {
             upperBridgeMap.append(correctYn);
-            lowerBridgeMap.append(BLANK);
+            lowerBridgeMap.append(SymbolProvider.BLANK);
         }
         if (playerMovement.equals("D")) {
-            upperBridgeMap.append(BLANK);
+            upperBridgeMap.append(SymbolProvider.BLANK);
             lowerBridgeMap.append(correctYn);
         }
     }
@@ -63,23 +60,24 @@ public class BridgeMap {
 
         if (playerMove.equals(block) && playerMove.equals("U")) {
             failYn = "Y";
-            upperBridgeMap.append("[ X ]");
-            lowerBridgeMap.append("[   ]");
+            upperBridgeMap.append(SymbolProvider.SIZE1_WRONG);
+            lowerBridgeMap.append(SymbolProvider.SIZE1_BLANK);
         }
         if (playerMove.equals(block) && playerMove.equals("D")) {
             failYn = "Y";
-            upperBridgeMap.append("[   ]");
-            lowerBridgeMap.append("[ X ]");
+            upperBridgeMap.append(SymbolProvider.SIZE1_BLANK);
+            lowerBridgeMap.append(SymbolProvider.SIZE1_WRONG);
         }
         if (!playerMove.equals(block) && playerMove.equals("U")) {
-            upperBridgeMap.append("[ O ]");
-            lowerBridgeMap.append("[   ]");
+            upperBridgeMap.append(SymbolProvider.SIZE1_CORRECT);
+            lowerBridgeMap.append(SymbolProvider.SIZE1_BLANK);
         }
         if(!playerMove.equals(block) && playerMove.equals("D")) {
-            upperBridgeMap.append("[   ]");
-            lowerBridgeMap.append("[ O ]");
+            upperBridgeMap.append(SymbolProvider.SIZE1_BLANK);
+            lowerBridgeMap.append(SymbolProvider.SIZE1_CORRECT);
         }
     }
+
 
     public String getUpperBridgeMap() {
         return upperBridgeMap.toString();
