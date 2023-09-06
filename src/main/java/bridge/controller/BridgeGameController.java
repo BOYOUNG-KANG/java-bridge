@@ -1,6 +1,7 @@
 package bridge.controller;
 
 import bridge.BridgeRandomNumberGenerator;
+import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.BridgeMap;
 import bridge.domain.PlayerMovement;
@@ -26,31 +27,38 @@ public class BridgeGameController {
     }
 
     public void startGame(int bridgeSize, List<String> bridgeBlock){
-        //initSetup
         PlayerMovement playerMovement = new PlayerMovement();
+        BridgeGame bridgeGame = new BridgeGame();
         String failYn = "N";
 
         for(int i = 1; i <= bridgeSize; i ++) {
             if(failYn.equals("N")) {
-                failYn = progressGame(i, bridgeBlock, playerMovement);
+                failYn = progressGame(i, bridgeBlock, playerMovement, bridgeGame);
             }
         }
-        restartGame(bridgeSize, bridgeBlock);
+        bridgeGame.updateTryCount();
+        bridgeGame.updateSuccessYn(failYn);
+        restartGame(bridgeSize, bridgeBlock,bridgeGame);
     }
-    private String progressGame(int size, List<String> block, PlayerMovement playerMovement){
-        System.out.println();
+    private String progressGame(int size, List<String> block, PlayerMovement playerMovement, BridgeGame bridgeGame){
         playerMovement.addPlayerMove(inputView.readMoving());
         BridgeMap bridgeMap = new BridgeMap();
         bridgeMap.createBridge(size, playerMovement.getPlayerMove(), block);
+        bridgeGame.updateFinalUpperBridge(bridgeMap.getUpperBridgeMap());
+        bridgeGame.updateFinalLowerBridge(bridgeMap.getLowerBridgeMap());
 
         outputView.printMap(bridgeMap.getUpperBridgeMap(), bridgeMap.getLowerBridgeMap());
         return bridgeMap.getFailYn();
     }
-    private void restartGame(int bridgeSize, List<String> bridgeBlock){
+    private void restartGame(int bridgeSize, List<String> bridgeBlock, BridgeGame bridgeGame){
         String restartYn = inputView.readGameCommand();
+        bridgeGame.retry(restartYn);
+
         if (restartYn.equals(RESTART)) {
             startGame(bridgeSize, bridgeBlock);
         }
-
+        if (restartYn.equals(QUIT)) {
+            outputView.printResult(bridgeGame.getFinalUpperBridge(), bridgeGame.getFinalLowerBridge(), bridgeGame.getSuccessYn(), bridgeGame.getTryCount());
+        }
     }
 }

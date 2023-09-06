@@ -16,7 +16,6 @@ public class BridgeMap {
         if (size != 1) {
             createBridgeOfSizeN(size, playerMovement, block);
         }
-
     }
 
     private void createBridgeOfSizeN(int size, List<String> playerMovement, List<String> block) {
