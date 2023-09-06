@@ -12,24 +12,30 @@ import java.util.List;
 public class BridgeGameController {
     OutputView outputView = new OutputView();
     InputView inputView = new InputView();
-    public void startGame(){
-        //initSetup
-        PlayerMovement playerMovement = new PlayerMovement();
-        String failYn = "N";
-
+    private static final String RESTART = "R";
+    private static final String QUIT = "Q";
+    public void playGame(){
         outputView.startGame();
         int bridgeSize = inputView.readBridgeSize();
-        System.out.println();
+
         BridgeRandomNumberGenerator generator = new BridgeRandomNumberGenerator();
         BridgeMaker bridgeMaker = new BridgeMaker(generator);
         List<String> bridgeBlock = bridgeMaker.makeBridge(bridgeSize);
+
+        startGame(bridgeSize, bridgeBlock);
+    }
+
+    public void startGame(int bridgeSize, List<String> bridgeBlock){
+        //initSetup
+        PlayerMovement playerMovement = new PlayerMovement();
+        String failYn = "N";
 
         for(int i = 1; i <= bridgeSize; i ++) {
             if(failYn.equals("N")) {
                 failYn = playGame(i, bridgeBlock, playerMovement);
             }
         }
-        
+        restartGame(bridgeSize, bridgeBlock);
     }
     private String playGame(int size, List<String> block, PlayerMovement playerMovement){
         System.out.println();
@@ -39,5 +45,12 @@ public class BridgeGameController {
 
         outputView.printMap(bridgeMap.getUpperBridgeMap(), bridgeMap.getLowerBridgeMap());
         return bridgeMap.getFailYn();
+    }
+    private void restartGame(int bridgeSize, List<String> bridgeBlock){
+        String restartYn = inputView.readGameCommand();
+        if (restartYn.equals(RESTART)) {
+            startGame(bridgeSize, bridgeBlock);
+        }
+
     }
 }
